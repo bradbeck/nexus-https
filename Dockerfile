@@ -4,12 +4,12 @@ MAINTAINER Brad Beck <bradley.beck+docker@gmail.com>
 ENV NEXUS_DATA /nexus-data
 ENV NEXUS_SSL /opt/sonatype/nexus/etc/ssl
 
-ENV NEXUS_VERSION 3.0.0-03
+ENV NEXUS_VERSION 3.0.1-01
 
 ENV JAVA_HOME /opt/java
 ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 77
-ENV JAVA_VERSION_BUILD 03
+ENV JAVA_VERSION_MINOR 92
+ENV JAVA_VERSION_BUILD 14
 
 RUN yum install -y \
   curl tar \
