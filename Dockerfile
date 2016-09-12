@@ -4,7 +4,7 @@ MAINTAINER Brad Beck <bradley.beck+docker@gmail.com>
 ENV NEXUS_DATA /nexus-data
 ENV NEXUS_SSL /opt/sonatype/nexus/etc/ssl
 
-ENV NEXUS_VERSION 3.0.1-01
+ENV NEXUS_VERSION 3.0.2-02
 
 ENV JAVA_HOME /opt/java
 ENV JAVA_VERSION_MAJOR 8
