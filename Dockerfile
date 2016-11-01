@@ -12,7 +12,7 @@ ENV EXTRA_JAVA_OPTS='' \
     JAVA_VERSION_MINOR=112 \
     JAVA_VERSION_BUILD=15 \
     NEXUS_CONTEXT='' \
-    NEXUS_DATA=${SONATYPE_WORK}/nexus3 \
+    NEXUS_DATA=/nexus-data \
     NEXUS_SSL=${NEXUS_DIR}/etc/ssl \
     NEXUS_VERSION=3.1.0-04
 
@@ -45,7 +45,8 @@ application-port-ssl=8443\
     -i ${NEXUS_DIR}/etc/nexus-default.properties
 
 RUN mkdir -p ${SONATYPE_WORK} \
-  && useradd -r -u 200 -m -c "nexus role account" -d ${NEXUS_DATA} -s /bin/false nexus
+  && useradd -r -u 200 -m -c "nexus role account" -d ${NEXUS_DATA} -s /bin/false nexus \
+  && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3
 
 VOLUME ["${NEXUS_DATA}", "${NEXUS_SSL}"]
 
