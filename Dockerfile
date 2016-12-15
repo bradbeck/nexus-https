@@ -13,8 +13,7 @@ ENV EXTRA_JAVA_OPTS='' \
     JAVA_VERSION_BUILD=15 \
     NEXUS_CONTEXT='' \
     NEXUS_DATA=/nexus-data \
-    NEXUS_SSL=${NEXUS_DIR}/etc/ssl \
-    NEXUS_VERSION=3.1.0-04
+    NEXUS_SSL=${NEXUS_DIR}/etc/ssl
 
 RUN yum install -y curl tar \
   && yum clean all
@@ -28,10 +27,13 @@ RUN mkdir -p /opt \
   | tar -x -C /opt \
   && ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} ${JAVA_HOME}
 
+ARG NEXUS_VERSION=3.1.0-04
+ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
+
 # install nexus
 RUN mkdir -p ${NEXUS_DIR} \
   && curl --fail --silent --location --retry 3 \
-    https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz \
+    ${NEXUS_DOWNLOAD_URL} \
   | gunzip \
   | tar x -C ${NEXUS_DIR} --strip-components=1 nexus-${NEXUS_VERSION} \
   && chown -R root:root ${NEXUS_DIR}
