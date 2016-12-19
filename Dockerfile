@@ -27,7 +27,7 @@ RUN mkdir -p /opt \
   | tar -x -C /opt \
   && ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} ${JAVA_HOME}
 
-ARG NEXUS_VERSION=3.1.0-04
+ARG NEXUS_VERSION=3.2.0-01
 ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
 
 # install nexus
