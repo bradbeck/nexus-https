@@ -9,8 +9,9 @@ ENV EXTRA_JAVA_OPTS='' \
     JAVA_MAX_MEM=1200m \
     JAVA_MIN_MEM=1200m \
     JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=112 \
-    JAVA_VERSION_BUILD=15 \
+    JAVA_VERSION_MINOR=121 \
+    JAVA_VERSION_BUILD=13 \
+    JAVA_VERSION_HASH=e9e7ea248e2c4826b92b3f075a80e441 \
     NEXUS_CONTEXT='' \
     NEXUS_DATA=/nexus-data \
     NEXUS_SSL=${NEXUS_DIR}/etc/ssl
@@ -22,7 +23,7 @@ RUN yum install -y curl tar \
 RUN mkdir -p /opt \
   && curl --fail --silent --location --retry 3 \
     --header "Cookie: oraclelicense=accept-securebackup-cookie; " \
-    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/server-jre-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
+    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_VERSION_HASH}/server-jre-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
   | gunzip \
   | tar -x -C /opt \
   && ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} ${JAVA_HOME}
