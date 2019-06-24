@@ -1,8 +1,6 @@
-# bradbeck/nexus-https
+[![DockerHub Badge](http://dockeri.co/image/bradbeck/nexus-https)](https://hub.docker.com/r/bradbeck/nexus-https/)
 
 A Dockerfile for Sonatype Nexus Repository Manager 3 with HTTPS support, based on CentOS.
-
-[![DockerHub Badge](http://dockeri.co/image/bradbeck/nexus-https)](https://hub.docker.com/r/bradbeck/nexus-https/)
 
 GitHub Repository: https://github.com/bradbeck/nexus-https
 
