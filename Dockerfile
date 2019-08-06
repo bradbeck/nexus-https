@@ -11,7 +11,8 @@ ARG GOSU_VERSION=1.10
 
 USER root
 
-RUN yum -y update && yum install -y openssl libxml2 libxslt && yum clean all
+RUN sed -e '/^enabled=1/ s/=1/=0/' -i /etc/yum/pluginconf.d/subscription-manager.conf \
+ && yum -y update && yum install -y openssl libxml2 libxslt && yum clean all
 
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
  && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64" \
