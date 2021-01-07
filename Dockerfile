@@ -1,5 +1,6 @@
-FROM       sonatype/nexus3
-MAINTAINER Brad Beck <bradley.beck+docker@gmail.com>
+FROM sonatype/nexus3
+
+LABEL maintainer="Brad Beck <bradley.beck+docker@gmail.com>"
 
 ENV NEXUS_SSL=${NEXUS_HOME}/etc/ssl
 ENV PUBLIC_CERT=${NEXUS_SSL}/cacert.pem \
@@ -7,7 +8,7 @@ ENV PUBLIC_CERT=${NEXUS_SSL}/cacert.pem \
     PRIVATE_KEY=${NEXUS_SSL}/cakey.pem \
     PRIVATE_KEY_PASSWORD=password
 
-ARG GOSU_VERSION=1.11
+ARG GOSU_VERSION=1.12
 
 USER root
 
@@ -42,4 +43,4 @@ WORKDIR ${NEXUS_HOME}
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 
-CMD [ "bin/nexus", "run"]
+CMD [ "bin/nexus", "run" ]
