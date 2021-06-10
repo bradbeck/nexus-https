@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Prepare
-        id: prepare
+        id: prep
         run: |
           DOCKER_IMAGE=${{ secrets.DOCKER_HUB_USERNAME }}/nexus-https
           TAGS="${DOCKER_IMAGE}:latest,${DOCKER_IMAGE}:${GITHUB_REF#refs/tags/v}"
