@@ -8,7 +8,7 @@ ENV PUBLIC_CERT=${NEXUS_SSL}/cacert.pem \
     PRIVATE_KEY=${NEXUS_SSL}/cakey.pem \
     PRIVATE_KEY_PASSWORD=password
 
-ARG GOSU_VERSION=1.12
+ARG GOSU_VERSION=1.13
 
 USER root
 
