@@ -7,7 +7,7 @@ if [ "$1" == 'bin/nexus' ]; then
   if [ ! -f "$NEXUS_SSL/keystore.jks" ]; then
     mkdir -p $NEXUS_SSL
     if [ ! -f $PUBLIC_CERT ] && [ ! -f $PRIVATE_KEY ]; then
-      openssl req -nodes -new -x509 -keyout $PRIVATE_KEY -out $PUBLIC_CERT -subj "${PUBLIC_CERT_SUBJ}"
+      openssl req -nodes -new -x509 -keyout $PRIVATE_KEY -out $PUBLIC_CERT -subj "${PUBLIC_CERT_SUBJ}" -days 2000
     fi
     if [ ! -f $NEXUS_SSL/jetty.key ]; then
       openssl pkcs12 -export -in $PUBLIC_CERT -inkey $PRIVATE_KEY -out $NEXUS_SSL/jetty.key -passout pass:$PRIVATE_KEY_PASSWORD
