@@ -8,20 +8,31 @@ ENV PUBLIC_CERT=${NEXUS_SSL}/cacert.pem \
     PRIVATE_KEY=${NEXUS_SSL}/cakey.pem \
     PRIVATE_KEY_PASSWORD=password
 
-ARG GOSU_VERSION=1.13
+ARG GOSU_VERSION=1.16
 
 USER root
 
-RUN sed -e '/^enabled=1/ s/=1/=0/' -i /etc/yum/pluginconf.d/subscription-manager.conf \
- && yum -y update && yum install -y openssl libxml2 libxslt && yum clean all
+RUN set -eux; \
+    microdnf install -y \
+        openssl \
+        libxml2 \
+        libxslt \
+    ; \
+    microdnf clean all
 
-RUN set -eux;\
-    curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64"; \
-    curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64.asc"; \
+RUN set -eux; \
+    arch="$(uname -m)"; \
+    case "$arch" in \
+        aarch64) gosuArch='arm64' ;; \
+    x86_64) gosuArch='amd64' ;; \
+    *) echo >&2 "error: unsupported architecture: '$arch'"; exit 1 ;; \
+    esac; \
+    curl -fL -o /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$gosuArch.asc"; \
+    curl -fL -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$gosuArch"; \
+    export GNUPGHOME="$(mktemp -d)"; \
     gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
     gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
-    rm -rf /root/.gnupg/ /usr/local/bin/gosu.asc; \
-    command -v gpgconf && gpgconf --kill all || :; \
+    rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
     chmod +x /usr/local/bin/gosu; \
     gosu --version; \
     gosu nobody true
